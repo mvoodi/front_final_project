@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Трекер бюджета</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Трекер бюджета</h1>
+
+    <div class="form-container">
+      <input type="text" id="transaction-name" placeholder="Название транзакции" />
+      <input type="number" id="transaction-amount" placeholder="Сумма" />
+      <button id="add-transaction">Добавить транзакцию</button>
+    </div>
+
+    <h2>Баланс: <span id="balance">0</span> som</h2>
+
+    <div class="transactions-list">
+      <h3>Транзакции</h3>
+      <ul id="transactions"></ul>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
