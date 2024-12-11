@@ -1,11 +1,15 @@
-const addTransactionButton = document.getElementById("add-transaction");
-const transactionNameInput = document.getElementById("transaction-name");
-const transactionAmountInput = document.getElementById("transaction-amount");
-const transactionCategorySelect = document.getElementById("transaction-category");
-const transactionTypeSelect = document.getElementById("transaction-type");
+const incomeNameInput = document.getElementById("income-name");
+const incomeAmountInput = document.getElementById("income-amount");
+const incomeCategorySelect = document.getElementById("income-category");
+const addIncomeButton = document.getElementById("add-income");
+
+const expenseNameInput = document.getElementById("expense-name");
+const expenseAmountInput = document.getElementById("expense-amount");
+const expenseCategorySelect = document.getElementById("expense-category");
+const addExpenseButton = document.getElementById("add-expense");
+
 const balanceElement = document.getElementById("balance");
 const transactionsList = document.getElementById("transactions");
-const categoryFilterSelect = document.getElementById("category-filter");
 
 let transactions = JSON.parse(localStorage.getItem("transactions")) || [];
 
@@ -16,13 +20,13 @@ function updateBalance() {
   balanceElement.textContent = `${balance} ₽`;
 }
 
-function renderTransactions(filteredTransactions = transactions) {
+function renderTransactions() {
   transactionsList.innerHTML = "";
-  filteredTransactions.forEach((transaction, index) => {
+  transactions.forEach((transaction, index) => {
     const li = document.createElement("li");
     li.textContent = `${transaction.name} (${transaction.category}): ${transaction.amount} ₽ [${transaction.type === "income" ? "Доход" : "Расход"}]`;
 
-    const deleteButton = document.createElement("button");
+    const deleteButton = document.createElement("button1");
     deleteButton.textContent = "Удалить";
     deleteButton.className = "delete-btn";
     deleteButton.addEventListener("click", () => {
@@ -41,33 +45,40 @@ function saveTransactions() {
   localStorage.setItem("transactions", JSON.stringify(transactions));
 }
 
-addTransactionButton.addEventListener("click", () => {
-  const name = transactionNameInput.value.trim();
-  const amount = parseFloat(transactionAmountInput.value.trim());
-  const category = transactionCategorySelect.value;
-  const type = transactionTypeSelect.value;
+addIncomeButton.addEventListener("click", () => {
+  const name = incomeNameInput.value.trim();
+  const amount = parseFloat(incomeAmountInput.value.trim());
+  const category = incomeCategorySelect.value;
 
-  if (name && !isNaN(amount) && category && type) {
-    const newTransaction = { name, amount, category, type };
-    transactions.push(newTransaction);
+  if (name && !isNaN(amount) && category) {
+    transactions.push({ name, amount, category, type: "income" });
     saveTransactions();
     renderTransactions();
     updateBalance();
-    transactionNameInput.value = "";
-    transactionAmountInput.value = "";
-    transactionCategorySelect.value = "";
-    transactionTypeSelect.value = "expense";
+    incomeNameInput.value = "";
+    incomeAmountInput.value = "";
+    incomeCategorySelect.value = "";
   } else {
-    alert("Пожалуйста, введите корректные данные!");
+    alert("Пожалуйста, введите корректные данные для дохода!");
   }
 });
 
-categoryFilterSelect.addEventListener("change", (e) => {
-  const categoryFilter = e.target.value;
-  const filteredTransactions = categoryFilter
-    ? transactions.filter(transaction => transaction.category === categoryFilter)
-    : transactions;
-  renderTransactions(filteredTransactions);
+addExpenseButton.addEventListener("click", () => {
+  const name = expenseNameInput.value.trim();
+  const amount = parseFloat(expenseAmountInput.value.trim());
+  const category = expenseCategorySelect.value;
+
+  if (name && !isNaN(amount) && category) {
+    transactions.push({ name, amount, category, type: "expense" });
+    saveTransactions();
+    renderTransactions();
+    updateBalance();
+    expenseNameInput.value = "";
+    expenseAmountInput.value = "";
+    expenseCategorySelect.value = "";
+  } else {
+    alert("Пожалуйста, введите корректные данные для расхода!");
+  }
 });
 
 renderTransactions();

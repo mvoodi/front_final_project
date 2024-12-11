@@ -39,7 +39,7 @@ input {
   border-radius: 4px;
 }
 
-button {
+button, button1 {
   padding: 10px;
   background-color: #4caf50;
   color: #fff;
@@ -107,9 +107,25 @@ select {
   text-align: center;
 }
 
-input, select, button {
+.forms-container {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 20px;
+}
+
+.form-section {
+  width: 45%;
+  background: #f9f9f9;
   padding: 10px;
-  margin: 5px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+input, select, button {
+  display: block;
+  width: 100%;
+  margin: 10px 0;
+  padding: 10px;
   font-size: 16px;
 }
 
@@ -130,9 +146,18 @@ button {
   margin: 5px 0;
 }
 
-.filter-container {
-  margin: 15px 0;
+button1.delete-btn {
+  background-color: red;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
 }
+
+button.delete-btn:hover {
+  background-color: darkred;
+}
+
 
 select {
   margin-bottom: 10px;

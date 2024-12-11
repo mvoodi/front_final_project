@@ -9,35 +9,37 @@
 <body>
   <div class="container">
     <h1>Трекер бюджета</h1>
-
-    <div class="form-container">
-      <input type="text" id="transaction-name" placeholder="Название транзакции" />
-      <input type="number" id="transaction-amount" placeholder="Сумма" />
-      <select id="transaction-category">
-        <option value="">Категория</option>
-        <option value="Еда">Еда</option>
-        <option value="Развлечения">Развлечения</option>
-        <option value="Транспорт">Транспорт</option>
-        <option value="Прочее">Прочее</option>
-      </select>
-      <select id="transaction-type">
-        <option value="expense">Расход</option>
-        <option value="income">Доход</option>
-      </select>
-      <button id="add-transaction">Добавить транзакцию</button>
-    </div>
-
     <h2>Баланс: <span id="balance">0</span> ₽</h2>
 
-    <div class="filter-container">
-      <label for="category-filter">Фильтр по категории: </label>
-      <select id="category-filter">
-        <option value="">Все</option>
-        <option value="Еда">Еда</option>
-        <option value="Развлечения">Развлечения</option>
-        <option value="Транспорт">Транспорт</option>
-        <option value="Прочее">Прочее</option>
-      </select>
+    <div class="forms-container">
+      <div class="form-section">
+        <h3>Добавить доход</h3>
+        <input type="text" id="income-name" placeholder="Название дохода" />
+        <input type="number" id="income-amount" placeholder="Сумма" />
+        <select id="income-category">
+          <option value="">Категория</option>
+          <option value="Зарплата">Зарплата</option>
+          <option value="Премия">Премия</option>
+          <option value="Инвестиции">Инвестиции</option>
+          <option value="Прочее">Прочее</option>
+        </select>
+        <button id="add-income">Добавить доход</button>
+      </div>
+
+      <div class="form-section">
+        <h3>Добавить расход</h3>
+        <input type="text" id="expense-name" placeholder="Название расхода" />
+        <input type="number" id="expense-amount" placeholder="Сумма" />
+        <select id="expense-category">
+          <option value="">Категория</option>
+          <option value="Еда">Еда</option>
+          <option value="Развлечения">Развлечения</option>
+          <option value="Транспорт">Транспорт</option>
+          <option value="Аренда">Аренда</option>
+          <option value="Прочее">Прочее</option>
+        </select>
+        <button id="add-expense">Добавить расход</button>
+      </div>
     </div>
 
     <div class="transactions-list">
