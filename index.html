@@ -13,10 +13,28 @@
     <div class="form-container">
       <input type="text" id="transaction-name" placeholder="Название транзакции" />
       <input type="number" id="transaction-amount" placeholder="Сумма" />
+      <select id="transaction-category">
+        <option value="">Категория</option>
+        <option value="Еда">Еда</option>
+        <option value="Развлечения">Развлечения</option>
+        <option value="Транспорт">Транспорт</option>
+        <option value="Прочее">Прочее</option>
+      </select>
       <button id="add-transaction">Добавить транзакцию</button>
     </div>
 
-    <h2>Баланс: <span id="balance">0</span> som</h2>
+    <h2>Баланс: <span id="balance">0</span> ₽</h2>
+
+    <div class="filter-container">
+      <label for="category-filter">Фильтр по категории: </label>
+      <select id="category-filter">
+        <option value="">Все</option>
+        <option value="Еда">Еда</option>
+        <option value="Развлечения">Развлечения</option>
+        <option value="Транспорт">Транспорт</option>
+        <option value="Прочее">Прочее</option>
+      </select>
+    </div>
 
     <div class="transactions-list">
       <h3>Транзакции</h3>
