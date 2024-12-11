@@ -99,4 +99,54 @@ button {
 select {
   margin-bottom: 10px;
 }
+.container {
+  width: 80%;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  text-align: center;
+}
+
+input, select, button {
+  padding: 10px;
+  margin: 5px;
+  font-size: 16px;
+}
+
+button {
+  cursor: pointer;
+}
+
+.transactions-list {
+  margin-top: 20px;
+}
+
+.transactions-list ul {
+  list-style: none;
+  padding: 0;
+}
+
+.transactions-list li {
+  margin: 5px 0;
+}
+
+.filter-container {
+  margin: 15px 0;
+}
+
+select {
+  margin-bottom: 10px;
+}
+
+button.delete-btn {
+  background-color: red;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+button.delete-btn:hover {
+  background-color: darkred;
+}
 
