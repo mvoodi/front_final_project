@@ -63,7 +63,21 @@
             <h3>Transactions</h3>
             <ul id="transactions-list"></ul>
         </div>
+        <div class="form-section">
+          <h3>Generate Report</h3>
+          <div>
+              <input id="report-month" type="month" />
+              <button id="generate-report-btn">Generate Report</button>
+          </div>
+          <div id="report-output"></div>
+      </div>
+      <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+      <div class="form-section">
+        <h3>Visual Representation</h3>
+        <canvas id="chart" width="400" height="200"></canvas>
+      </div>
     </div>
     <script src="script.js"></script>
+
 </body>
 </html>

@@ -145,6 +145,141 @@ filterButton.addEventListener("click", () => {
     renderTransactions(filter);
 });
 
+const reportMonth = document.getElementById("report-month");
+const generateReportBtn = document.getElementById("generate-report-btn");
+const reportOutput = document.getElementById("report-output");
+
+generateReportBtn.addEventListener("click", () => {
+    const selectedMonth = reportMonth.value; // Format: "YYYY-MM"
+    if (!selectedMonth) return;
+
+    const [year, month] = selectedMonth.split("-");
+    const filteredTransactions = transactions.filter(transaction => {
+        const transactionDate = new Date(transaction.date);
+        return (
+            transactionDate.getFullYear() === parseInt(year) &&
+            transactionDate.getMonth() + 1 === parseInt(month)
+        );
+    });
+
+    const income = filteredTransactions
+        .filter(t => t.type === "Income")
+        .reduce((acc, t) => acc + t.amount, 0);
+
+    const expenses = filteredTransactions
+        .filter(t => t.type === "Expense")
+        .reduce((acc, t) => acc + t.amount, 0);
+
+    reportOutput.innerHTML = `
+        <h4>Financial Report for ${selectedMonth}</h4>
+        <p>Total Income: $${income.toFixed(2)}</p>
+        <p>Total Expenses: $${Math.abs(expenses).toFixed(2)}</p>
+        <p>Net Balance: $${(income + expenses).toFixed(2)}</p>
+    `;
+});
+const API_URL = "https://example.com/api/transactions";
+
+// Load transactions from API
+async function loadTransactions() {
+    try {
+        const response = await fetch(`${API_URL}/load`);
+        const data = await response.json();
+        transactions = data;
+        saveTransactions(); // Сохраняем в localStorage
+        updateBalance();
+        renderTransactions();
+    } catch (error) {
+        console.error("Error loading transactions:", error);
+    }
+}
+
+// Save transactions to API
+async function saveToAPI() {
+    try {
+        await fetch(`${API_URL}/save`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(transactions),
+        });
+    } catch (error) {
+        console.error("Error saving transactions:", error);
+    }
+}
+
+// Update saveTransactions function to include API sync
+function saveTransactions() {
+    localStorage.setItem("transactions", JSON.stringify(transactions));
+    saveToAPI(); // Sync with API
+}
+
+// Call loadTransactions on initialization
+loadTransactions();
+
+
+// Include Chart.js library in your HTML file:
+// <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+const chartCanvas = document.getElementById("income-expense-chart");
+
+function renderChart() {
+    const income = transactions
+        .filter(t => t.type === "Income")
+        .reduce((acc, t) => acc + t.amount, 0);
+
+    const expenses = transactions
+        .filter(t => t.type === "Expense")
+        .reduce((acc, t) => acc + t.amount, 0);
+
+    const chartData = {
+        labels: ["Income", "Expenses"],
+        datasets: [
+            {
+                label: "Financial Overview",
+                data: [income, Math.abs(expenses)],
+                backgroundColor: ["#28a745", "#dc3545"],
+            },
+        ],
+    };
+
+    new Chart(chartCanvas, {
+        type: "doughnut",
+        data: chartData,
+    });
+}
+
+// Call renderChart whenever transactions are updated
+updateBalance = () => {
+    const total = transactions.reduce((acc, transaction) => acc + transaction.amount, 0);
+    totalBalance.textContent = `$${total.toFixed(2)}`;
+    totalBalance.style.color = total >= 0 ? "#28a745" : "#dc3545";
+    renderChart();
+};
+
+const ctx = document.getElementById('chart').getContext('2d');
+new Chart(ctx, {
+  type: 'bar', // Тип графика: 'bar', 'line', 'pie', 'doughnut', и т.д.
+  data: {
+    labels: ['Income', 'Expenses', 'Net Balance'], // Метки оси X
+    datasets: [{
+      label: 'Financial Summary',
+      data: [51500, 6650, 45850], // Значения для оси Y
+      backgroundColor: ['#1abc9c', '#e74c3c', '#3498db'], // Цвета
+      borderWidth: 1
+    }]
+  },
+  options: {
+    responsive: true,
+    plugins: {
+      legend: {
+        display: true,
+        position: 'top'
+      }
+    }
+  }
+});
+
+
+
 // Initialize
 populateCategoryDropdowns();
 updateBalance();
